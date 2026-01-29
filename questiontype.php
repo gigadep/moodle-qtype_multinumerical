@@ -33,6 +33,13 @@ require_once($CFG->dirroot . '/question/type/multinumerical/question.php');
 
 class qtype_multinumerical extends question_type {
 
+    public $conditions;
+    public $feedbackperconditions;
+    public $binarygrade;
+    public $displaycalc;
+    public $usecolorforfeedback;
+    public $parameters;
+
     public function questionid_column_name() {
         return 'question';
     }

@@ -28,6 +28,14 @@ defined('MOODLE_INTERNAL') || die();
 
 class qtype_multinumerical_question extends question_graded_automatically {
 
+    public $conditions;
+    public $feedbackperconditions;
+    public $computedfeedbackperconditions;
+    public $binarygrade;
+    public $displaycalc;
+    public $usecolorforfeedback;
+    public $parameters;
+
     public function get_expected_data() {
         $return = array();
         foreach ($this->get_parameters() as $parameter) {
