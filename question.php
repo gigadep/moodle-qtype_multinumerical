@@ -47,7 +47,8 @@ class qtype_multinumerical_question extends question_graded_automatically {
     public function summarise_response(array $response) {
         $return = array();
         foreach ($this->get_parameters() as $parameter) {
-            $return[] = $parameter . ' = ' . $response['answer_'.$parameter];
+            $key = 'answer_' . $parameter;
+            $return[] = $parameter . ' = ' . ($response[$key] ?? '');
         }
         return implode(' ; ', $return);
     }
@@ -151,9 +152,10 @@ class qtype_multinumerical_question extends question_graded_automatically {
         foreach ($response as $param => &$value) {
             // in case someone used locale-dependant $decsep and/or $thousandssep,
             // make it machine-readable:
+            $value = (string)($value ?? '');
             $value = str_replace(' ', '', $value);
-            $value = str_replace($thousandssep, '', $value);
-            $value = str_replace($decsep, '.', $value);
+            $value = str_replace((string)$thousandssep, '', $value);
+            $value = str_replace((string)$decsep, '.', $value);
             $value = (float)$value;
             // EvalMath doesn't like uppercase variable names
             $math->evaluate(strtolower(substr($param, 7)).'='.$value);
